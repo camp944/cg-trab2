@@ -1,4 +1,5 @@
-//Implementa��o do projetil (muni��o)
+
+//Implementação do projetil (munição)
 #ifndef PROJETIL_H
 #define PROJETIL_H
 #include <GL/glut.h>
@@ -18,49 +19,23 @@ typedef struct{
 	
 }Projetil;
 
-void desenhaProjetil(float xOrigem, float yOrigem, int direcao) {
-    // Desabilita o uso de texturas
-    // glDisable(GL_TEXTURE_2D);
-
-    // // Salva o estado atual da matriz de transformações
-    // glPushMatrix();
-
-    // // Define a cor do corpo do projetil
-    // glColor3f(1.0, 0.5, 0.0); // Cor laranja
-
-    // // Translada o projetil para a posição de origem
-    // glTranslatef(xOrigem, yOrigem, 0.0);
-
-    // // Rotaciona o projetil de acordo com a direção
-    // glRotatef(direcao, 0.0, 0.0, 1.0);
-
-    // // Escala o projetil para o tamanho especificado
-    // glScalef(tam_projetil, tam_projetil, tam_projetil);
-
-    // // Cria e inicializa o objeto quadrático
-    // GLUquadric* quadric = gluNewQuadric();
-    // if (quadric == nullptr) {
-    //     std::cerr << "Erro ao criar objeto GLUquadric." << std::endl;
-    //     glPopMatrix();
-    //     return;
-    // }
-
-    // // Desenha o corpo do projetil como um cilindro
-    // glPushMatrix();
-    //     glColor3f(1.0, 0.5, 0.0); // Cor laranja
-    //     gluCylinder(quadric, 0.1, 0.1, 1.0, 20, 20); // Cilindro para o corpo do projetil
-    // glPopMatrix();
-
-    // // Desenha a ponta do projetil como um cone
-    
-    // // Libera a memória usada pelo quadrico
-    // //gluDeleteQuadric(quadric);
-
-    // // Restaura o estado da matriz de transformações
-    // glPopMatrix();
-
-    // // Habilita novamente o uso de texturas
-    // glEnable(GL_TEXTURE_2D);
+void desenhaProjetil(float xOrigem, float yOrigem, int direcao){
+	//Projetil inteiro.
+	glDisable(GL_TEXTURE_2D);
+	glPushMatrix();
+		glColor3f(1.0, 0.5, 0.0);
+		glTranslatef (yOrigem*1, xOrigem*1, 0.5);
+		glRotatef(direcao, 0.0 , 0.0 , 1.0);
+		glScalef (tam_projetil, tam_projetil, tam_projetil);
+		glutSolidCube(1.0);
+		//Parte da frente do Projetil.
+		glPushMatrix();
+			glColor3f(0.1, 0.1, 0.1);
+			glTranslatef(0.0, 0.5, 0.0);
+			glScalef (1.0, 0.5, 1.0);
+			glutSolidCube(1.0);
+		glPopMatrix();
+    glPopMatrix();
+    glEnable(GL_TEXTURE_2D);
 }
-
 #endif

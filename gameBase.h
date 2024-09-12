@@ -23,10 +23,7 @@ using std::string;
 int h, w = 0;
 
 //Partida
-bool game_win = false;
-bool game_over = false;
-bool menu_inicial = true;
-bool menu_info = false;
+
 
 static int game_over_execucao = 0;
 static int game_win_execucao = 0;
@@ -83,33 +80,18 @@ void init(void){
 
 void display(){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Limpa o Buffer de Cores
-    glLoadIdentity();
+	glLoadIdentity();
     if (menu_inicial == false && game_over == false && game_win == false && menu_info == false){
 	    playMenuAudio();
 			playAudio();
 	    background();
 	    criaMapa(jogador, inimigo1, inimigo2, inimigo3);
 	    desenhaVidasJogador(jogador.vida);
+		
 	    desenhaVidasInimigo(vidas_inimigos);
 	    desenhaPlacarBonus();
-		std::cout << "Passou de desenhaProjetil-\n";
-	    if(jogador.projetil.tiro && (game_over == false && game_win == false)){
-
-			std::cout << "Passou de desenhaProjetil0\n";													
-		}
-		if(inimigo1.projetil.tiro){
-			desenhaProjetil(inimigo1.projetil.xOrigem, inimigo1.projetil.yOrigem, inimigo1.projetil.direcao);
-			std::cout << "Passou de desenhaProjetil1\n";
-		}
-		if(inimigo2.projetil.tiro){
-			desenhaProjetil(inimigo2.projetil.xOrigem, inimigo2.projetil.yOrigem, inimigo2.projetil.direcao);
-			std::cout << "Passou de desenhaProjetil2\n";
-		}
-		if(inimigo3.projetil.tiro){
-			desenhaProjetil(inimigo3.projetil.xOrigem, inimigo3.projetil.yOrigem, inimigo3.projetil.direcao);
-			std::cout << "Passou de desenhaProjetil3\n";
-		}
-		if(bonus_ativo == true){
+		
+	    if(bonus_ativo == true){
 			bonus();
 		}
 	}

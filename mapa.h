@@ -39,6 +39,12 @@ using std::string;
 #include "texturas/texturaGameOver.h"
 #include "texturas/texturaGameWin.h"
 
+bool game_win = false;
+bool game_over = false;
+bool menu_inicial = true;
+bool menu_info = false;
+
+
 #define tamMapa 15
 
 //Texturas
@@ -333,20 +339,32 @@ void criaMapa(Jogador jogador, Inimigo inimigo1, Inimigo inimigo2, Inimigo inimi
 	
 	//Se o jogador ainda estiver vivo, ele � desenhado.
 	
-	if(jogador.vivo){
+	if(jogador.vivo && jogador.projetil.tiro && (game_over == false && game_win == false)){
+		desenhaTank(jogador.x, jogador.y, jogador.direcaoCano, jogador.R, jogador.G, jogador.B);
+		desenhaProjetil(jogador.projetil.xOrigem, jogador.projetil.yOrigem, jogador.projetil.direcao);
+	}else{
 		desenhaTank(jogador.x, jogador.y, jogador.direcaoCano, jogador.R, jogador.G, jogador.B);
 	}
 	
-	if(inimigo1.vivo){
+	if(inimigo1.vivo && inimigo1.projetil.tiro && (game_over == false && game_win == false)){
+		desenhaTank(inimigo1.x, inimigo1.y, inimigo1.direcaoCano, inimigo1.R, inimigo1.G, inimigo1.B);
+		desenhaProjetil(inimigo1.projetil.xOrigem, inimigo1.projetil.yOrigem, inimigo1.projetil.direcao);
+	}else{
 		desenhaTank(inimigo1.x, inimigo1.y, inimigo1.direcaoCano, inimigo1.R, inimigo1.G, inimigo1.B);
 	}
 	
-	if(inimigo2.vivo){
+	if(inimigo2.vivo && inimigo2.projetil.tiro &&  (game_over == false && game_win == false)){
+		desenhaTank(inimigo2.x, inimigo2.y, inimigo2.direcaoCano, inimigo2.R, inimigo2.G, inimigo2.B);
+		desenhaProjetil(inimigo2.projetil.xOrigem, inimigo2.projetil.yOrigem, inimigo2.projetil.direcao);
+	}else{
 		desenhaTank(inimigo2.x, inimigo2.y, inimigo2.direcaoCano, inimigo2.R, inimigo2.G, inimigo2.B);
 	}
 	
-	if(inimigo3.vivo){
+	if(inimigo3.vivo && inimigo3.projetil.tiro &&  (game_over == false && game_win == false)){
 		desenhaTank(inimigo3.x, inimigo3.y, inimigo3.direcaoCano, inimigo3.R, inimigo3.G, inimigo3.B);
+		desenhaProjetil(inimigo3.projetil.xOrigem, inimigo3.projetil.yOrigem, inimigo3.projetil.direcao);
+	}else{
+		desenhaTank(inimigo3.x, inimigo3.y, inimigo3.direcaoCano, inimigo3.R, inimigo3.G, inimigo3.B);	
 	}
 
 }

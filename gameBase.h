@@ -56,7 +56,10 @@ Inimigo inimigo2 = {13, 6, 13, 6, 0.1, 0.1, 180, 1.0, 0.9, 0.9, true, {13, 13, 0
 Inimigo inimigo3 = {13, 1, 13, 1, 0.1, 0.1, -90, 1.0, 1.0, 1.0, true, {13, 13, 0.25f, 5.0f, 0, false}};
 
 
+
+
 void init(void);
+void restart();
 void keyboard (unsigned char key, int x, int y);
 void display(void);
 void reshape (int w, int h);
@@ -76,6 +79,44 @@ void init(void){
   // Ativa o modelo de sombreamento de Gouraud.
   glShadeModel(GL_SMOOTH);
 	initFog();
+}
+
+void restart(){
+	h, w = 0;
+
+	//Partida
+
+
+	game_over_execucao = 0;
+	game_win_execucao = 0;
+	game_menu_execucao = 0;
+
+	//Bonus
+	bonus_ativo = false;
+
+
+
+	anima_bonus = 0;
+	velocidade_bonus = 0;
+
+
+
+	//TotalInimigos
+	total_inimigos = 3; //Quantas vezes o inimigo pode respawnar.
+	vidas_inimigos = 6; //O total de vidas dos inimigos.
+
+	//Instancia de Jogador.
+	//X, Y, Xinicial, Yinicial, Velocidade, Velocidade Inicial DirecaoCano, R, G, B, Vidas, Vivo. Projetil{ x, y, velocidade, distancia, direcao, tiro.}
+	jogador = {1, 4, 1, 4, 0.1, 0.1, 0, 1.0, 1.0, 0.0, 3, true, {1, 4, 0.25f, 5.0f, 0, false}};
+	velocidade_inicial = jogador.velocidade;
+
+	//Instancia de Inimigo.
+	//X, Y, Xinicial, Yinicial, Velocidade, Velocidade Inicial DirecaoCano, R, G, B, vivo. Projetil{ x, y, velocidade, distancia, direcao, tiro.}
+	inimigo1 = {13, 13, 13, 13, 0.1, 0.1, 180, 0.9, 1.0, 0.9, true, {13, 13, 0.25f, 5.0f, 0, false}};
+	inimigo2 = {13, 6, 13, 6, 0.1, 0.1, 180, 1.0, 0.9, 0.9, true, {13, 13, 0.25f, 5.0f, 0, false}};
+	inimigo3 = {13, 1, 13, 1, 0.1, 0.1, -90, 1.0, 1.0, 1.0, true, {13, 13, 0.25f, 5.0f, 0, false}};
+
+
 }
 
 void display(){
@@ -185,10 +226,17 @@ void keyboard (unsigned char key, int x, int y){
 			} else if(game_over){
 				game_over = false;
 			}
+			break;
 		case 8:
-			if(menu_info){
+			if(menu_info || game_over || game_win){
 				menu_inicial = true;
-				menu_info=false;
+				menu_info = false;
+				
+				if(game_over || game_win){
+					restart();
+					game_over = false;
+					game_win = false;
+				}
 			}
 			break;	
 		case 27:
@@ -763,3 +811,4 @@ void bonus(){
 			break;
 	}
 }
+

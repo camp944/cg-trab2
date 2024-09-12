@@ -41,6 +41,7 @@ int main(int argc, char** argv){
     glutTimerFunc(15000, sorteiaBonus, 0);
     glutTimerFunc(0, sorteiaMovimento, 0);
     glutTimerFunc(0, animacaoBonus, 0);
+    restart();
     init();
     
     glutMainLoop();

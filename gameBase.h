@@ -13,6 +13,7 @@
 #include "projetil.h"
 #include "audio.h"
 #include "textos.h"
+#include "fog.h"
 #include <sstream>
 using std::stringstream;
 #include <string>
@@ -77,15 +78,15 @@ void init(void){
   textura();
   // Ativa o modelo de sombreamento de Gouraud.
   glShadeModel(GL_SMOOTH);
+	initFog();
 }
 
 void display(){
-    
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //Limpa o Buffer de Cores
     glLoadIdentity();
     if (menu_inicial == false && game_over == false && game_win == false && menu_info == false){
 	    playMenuAudio();
-		playAudio();
+			playAudio();
 	    background();
 	    criaMapa(jogador, inimigo1, inimigo2, inimigo3);
 	    desenhaVidasJogador(jogador.vida);
@@ -186,6 +187,15 @@ void keyboard (unsigned char key, int x, int y){
 				menu_inicial = false;
 				menu_info = true;
 			} 
+			break;	
+		case 'n':
+			toggleFog();
+			break;	
+		case '+':
+			increaseFog();
+			break;
+		case '-':
+			decreaseFog();
 			break;
 		case 13:
 			if(menu_inicial){

@@ -5,7 +5,7 @@ DEBUG_FLAGS=-g
 OUTPUT_NAME=game
 
 all:  
-	$(CC) -o ${OUTPUT_NAME} main.cpp $(INCLUDE_FLAGS) ${DEBUG_FLAGS}
+	$(CC) -o ${OUTPUT_NAME} *.cpp $(INCLUDE_FLAGS) ${DEBUG_FLAGS}
 
 run: all
 	./${OUTPUT_NAME}

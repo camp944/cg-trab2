@@ -21,7 +21,7 @@ Neste projeto foram usadas as seguintes tecnologias:
 
 > C++;
 
-> Falcon;
+> SOIL;
 
 > OpenGL;
 

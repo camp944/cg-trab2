@@ -1,6 +1,12 @@
 <h1 align="center"> Tank-Bias 🎮🕹 </h1>
 
-## ℹ️ Sobre o projeto
+
+## ALUNOS: 
+###        HUGO ANTUNES PINA - 20203018893
+###       JOÃO PEDRO DE ALMEIDA CAMPOS - 20203003792
+###        THIAGO RIBEIRO CORRÊA - 20203001484
+
+## Sobre o projeto
 
 Este trabalho apresenta a implementação de um jogo de tanks, utilizando a linguagem C++ e as bibliotecas OpenGL, Glut e SOIL. Desenvolvido para a disciplina de Computação Gráfica no Centro Federal de Educação Tecnológica de Minas Gerais, 2024/1.
 

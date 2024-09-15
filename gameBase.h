@@ -56,7 +56,50 @@ Inimigo inimigo2 = {13, 6, 13, 6, 0.1, 0.1, 180, 1.0, 0.9, 0.9, true, {13, 13, 0
 Inimigo inimigo3 = {13, 1, 13, 1, 0.1, 0.1, -90, 1.0, 1.0, 1.0, true, {13, 13, 0.25f, 5.0f, 0, false}};
 
 
+bool luz_direita_ativa = true;
+bool luz_acima_ativa = true;
+bool luz_esquerda_ativa = true;
 
+// Defina as posições e cores das luzes
+GLfloat light_position_direita[] = {15.0, 7.5, 5.0, 1.0}; // Posição à direita do mapa
+GLfloat light_position_acima[] = {7.5, 15.0, 10.0, 1.0};   // Posição acima do mapa
+GLfloat light_position_esquerda[] = {-1.0, 7.5, 5.0, 1.0}; // Posição à esquerda do mapa
+
+GLfloat light_color[] = {1.0, 1.0, 1.0, 1.0};
+GLfloat light_direction[] = {0.0, 0.0, -1.0}; // Direção das luzes (apontando para baixo)
+
+// Função para configurar as luzes
+void configuraLuzes() {
+    if (luz_direita_ativa) {
+        glEnable(GL_LIGHT1);
+        glLightfv(GL_LIGHT1, GL_POSITION, light_position_direita);
+        glLightfv(GL_LIGHT1, GL_DIFFUSE, light_color);
+        glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, light_direction);
+        glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0); // Ângulo do feixe de luz
+    } else {
+        glDisable(GL_LIGHT1);
+    }
+
+    if (luz_acima_ativa) {
+        glEnable(GL_LIGHT2);
+        glLightfv(GL_LIGHT2, GL_POSITION, light_position_acima);
+        glLightfv(GL_LIGHT2, GL_DIFFUSE, light_color);
+        glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, light_direction);
+        glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 45.0); // Ângulo do feixe de luz
+    } else {
+        glDisable(GL_LIGHT2);
+    }
+
+    if (luz_esquerda_ativa) {
+        glEnable(GL_LIGHT3);
+        glLightfv(GL_LIGHT3, GL_POSITION, light_position_esquerda);
+        glLightfv(GL_LIGHT3, GL_DIFFUSE, light_color);
+        glLightfv(GL_LIGHT3, GL_SPOT_DIRECTION, light_direction);
+        glLightf(GL_LIGHT3, GL_SPOT_CUTOFF, 45.0); // Ângulo do feixe de luz
+    } else {
+        glDisable(GL_LIGHT3);
+    }
+}
 
 void init(void);
 void restart();
@@ -70,15 +113,25 @@ void aplicaBonus(int tipo_bonus);
 void textura();
 void manipulaInimigoAtingido(Jogador *jogador, Inimigo *inimigo);
 
-void init(void){
-  glClearColor (0.4, 0.4, 0.4, 0.0);
-  glEnable(GL_CULL_FACE);
-  glCullFace(GL_BACK);
-  glEnable(GL_DEPTH_TEST); // Habilita o algoritmo Z-Buffer
-  textura();
-  // Ativa o modelo de sombreamento de Gouraud.
-  glShadeModel(GL_SMOOTH);
-	initFog();
+void init(void) {
+    glClearColor(0.4, 0.4, 0.4, 0.0);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glEnable(GL_DEPTH_TEST); // Habilita o algoritmo Z-Buffer
+    textura();
+    // Ativa o modelo de sombreamento de Gouraud.
+    glShadeModel(GL_SMOOTH);
+    initFog();
+
+    // Configura a luz principal
+    glEnable(GL_LIGHTING); // Ativa o modelo de iluminação
+    glEnable(GL_LIGHT0); // Ativa a Luz 0. O OpenGL suporta pelo menos 8 pontos de luz
+    GLfloat light_position[] = {0.0, 0.0, 10.0, 1.0}; // Luz principal acima do mapa
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_color);
+
+    // Configura as luzes adicionaisis
+    configuraLuzes();
 }
 
 void restart(){
@@ -128,7 +181,7 @@ void display(){
 	    background();
 	    criaMapa(jogador, inimigo1, inimigo2, inimigo3);
 	    desenhaVidasJogador(jogador.vida);
-		
+		configuraLuzes();
 	    desenhaVidasInimigo(vidas_inimigos);
 	    desenhaPlacarBonus();
 		
@@ -244,6 +297,18 @@ void keyboard (unsigned char key, int x, int y){
 				exit(EXIT_SUCCESS); 
 			}
 			break;
+		case '1':
+            luz_esquerda_ativa = !luz_esquerda_ativa;
+            configuraLuzes();
+            break;
+        case '2':
+            luz_acima_ativa = !luz_acima_ativa;
+            configuraLuzes();
+            break;
+        case '3':
+            luz_direita_ativa = !luz_direita_ativa;
+            configuraLuzes();
+            break;
 		default:
 			break;
 	}
